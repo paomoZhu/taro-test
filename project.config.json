@@ -1,10 +1,10 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "taro-test",
+	"projectname": "year",
 	"description": "测试",
-	"appid": "wxac5701a9df916679",
+	"appid": "wxe3c1220c2bbb3d2f",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
 		"minified": false,

@@ -1,56 +1,159 @@
-.box {
-  width: 60px;
-  height: 120px;
-  background-color: #000;
-  margin: 0 auto;
-  animation: shake 800ms linear infinite;
-  transform-origin: 50% 50%;
+@server: "http://zhuzhunian-1258431382.cos.ap-shanghai.myqcloud.com/bg.png";
+
+.wrapper {
+  height: 4002px;
+  background-color: #ffeeda;
 }
 
-.share-image {
-  position: fixed;
-  top: 75px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 888px;
-  border: 1px solid black;
-  image {
-    width: 100%;
-    height: 100%;
+.index {
+  height: 4002px;
+  background-image: url(@server);
+  background-repeat: repeat;
+  // background-color: red;
+  position: relative;
+  .music {
+    position: fixed;
+    right: 30px;
+    top: 30px;
+    width: 58px;
+    height: 58px;
+    z-index: 100;
+    .start {
+      display: inline-block;
+      width: 54px;
+      height: 54px;
+      margin: 2px;
+    }
+    .pause {
+      display: inline-block;
+      width: 58px;
+      height: 58px;
+      animation: shake 1s infinite;
+    }
   }
-  .close,
-  .save {
-    position: absolute;
-    bottom: -100px;
-    transform: translateX(-50%);
-    border: 1px solid;
-    text-align: center;
-  }
+}
 
-  .save {
-    right: 0;
+.screen-one {
+  position: relative;
+  height: 1334px;
+  .top-image {
+    width: 100%;
+    // height: 264px;
   }
+  .charactor {
+    position: absolute;
+    width: 100%;
+    bottom: 45px;
+    left: 0;
+  }
+  .username {
+    position: relative;
+    top: -48px;
+    display: inline-block;
+    text-align: center;
+    color: #e5503c;
+    font-size: 37px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 3px #8f3232;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 60%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  .happy-new-year {
+    position: relative;
+    top: -30px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: #ff3f5f;
+    font-size: 54px;
+    text-indent: 30px;
+    letter-spacing: 6px;
+    // opacity: 0.4;
+    text-shadow: 0 0 5px #8f3232;
+  }
+  .avatar {
+    position: relative;
+    top: -60px;
+    background: #fff;
+    border-radius: 100%;
+    width: 160px;
+    height: 160px;
+    display: inline-block;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid #fdd3a0;
+    box-shadow: 0 1px 12px #d86526;
+  }
+}
+
+.screen-two {
+  position: relative;
+  height: 1334px;
+  .charactor {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .flo-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 154px;
+    height: 532px;
+  }
+  .flo-right {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 154px;
+    height: 532px;
+  }
+}
+
+.screen-three {
+  position: relative;
+  height: 1334px;
+  .charactor {
+    position: absolute;
+    width: 100%;
+    top: 40px;
+  }
+  .flower {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .title {
+    position: absolute;
+    width: 80%;
+    margin-left: calc(50% + 20px);
+    transform: translateX(-50%);
+  }
+}
+
+.special {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  background-color: #f96735 !important;
+  transform: translateX(-50%);
+  border: 10px solid #fdd3a0;
+  border-radius: 100px;
+  font-size: 36px;
+  color: #eeeeee;
+  letter-spacing: 2px;
+  box-shadow: 0 1px 12px #d86526;
 }
 
 @keyframes shake {
-  0% {
-    transform: rotateZ(0deg);
+  from {
+    transform: rotate(0deg);
   }
-  15% {
-    transform: rotateZ(30deg);
-  }
-  30% {
-    transform: rotateZ(0deg);
-  }
-  45% {
-    transform: rotateZ(-40deg);
-  }
-  60% {
-    transform: rotateZ(0deg);
-  }
-  100% {
-    animation-timing-function: ease-in;
-    transform: scale(0.4, 0.4);
+  to {
+    transform: rotate(180deg);
   }
 }
