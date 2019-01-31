@@ -32,10 +32,7 @@ class ScreenOne extends Taro.Component {
           src='http://zhuzhunian-1258431382.cos.ap-shanghai.myqcloud.com/top.png'
         />
         <Image className='avatar' src={avatarUrl} />
-        <Text className='username'>
-          {nickName ||
-            "猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩猪猪女孩"}
-        </Text>
+        <Text className='username'>{nickName}</Text>
         <Text className='happy-new-year'>给您拜年啦～</Text>
         <Image
           className='charactor'

@@ -1,12 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import Index from "./pages/index";
 
-import { Provider } from "@tarojs/mobx";
-import counterStore from "./store/counter";
-
 import "./app.less";
-
-const store = { counterStore };
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -19,9 +14,9 @@ class App extends Component {
     pages: ["pages/index/index"],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#fff",
+      navigationBarBackgroundColor: "#f15454",
       navigationBarTitleText: "WeChat",
-      navigationBarTextStyle: "black"
+      navigationBarTextStyle: "white"
     }
   };
 
@@ -36,11 +31,7 @@ class App extends Component {
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return (
-      <Provider store={store}>
-        <Index />
-      </Provider>
-    );
+    return <Index />;
   }
 }
 

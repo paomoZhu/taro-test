@@ -7,13 +7,28 @@ import "./index.less";
 
 class Index extends Component {
   config = {
-    navigationBarTitleText: "首页"
+    navigationBarTitleText: "福猪拜年"
   };
 
   constructor(props) {
     super(props);
 
     this.innerAudioContext = null;
+
+    Taro.authorize({
+      scope: "scope.userInfo",
+      success(res) {
+        if (e.type === "getuserinfo" && e.detail.errMsg === "getUserInfo:ok") {
+          const { rawData } = e.detail;
+          const userInfo = JSON.parse(rawData);
+          this.setState({
+            nickName: userInfo.nickName,
+            avatarUrl: userInfo.avatarUrl,
+            readyShare: true
+          });
+        }
+      }
+    });
 
     this.state = {
       pauseMusic: false,
@@ -43,7 +58,7 @@ class Index extends Component {
       });
     }
 
-    if (!screenThreeAnimate && scrollTop > 1250) {
+    if (!screenThreeAnimate && scrollTop > 1275) {
       this.setState({
         screenThreeAnimate: true
       });
@@ -77,22 +92,54 @@ class Index extends Component {
   componentWillUnmount() {}
 
   getUserInfo(e) {
-    if (e.type === "getuserinfo" && e.detail.errMsg === "getUserInfo:ok") {
-      const { rawData } = e.detail;
-      const userInfo = JSON.parse(rawData);
-      this.setState({
-        nickName: userInfo.nickName,
-        avatarUrl: userInfo.avatarUrl,
-        readyShare: true
-      });
-      Taro.pageScrollTo({
-        scrollTop: 0
-      });
-    }
+    Taro.getSetting({
+      success: res => {
+        if (!res.authSetting["scope.userInfo"]) {
+          Taro.authorize({
+            scope: "scope.userInfo",
+            success() {
+              if (
+                e.type === "getuserinfo" &&
+                e.detail.errMsg === "getUserInfo:ok"
+              ) {
+                const { rawData } = e.detail;
+                const userInfo = JSON.parse(rawData);
+                this.setState({
+                  nickName: userInfo.nickName,
+                  avatarUrl: userInfo.avatarUrl,
+                  readyShare: true
+                });
+                Taro.pageScrollTo({
+                  scrollTop: 0
+                });
+              }
+            }
+          });
+        } else {
+          if (
+            e.type === "getuserinfo" &&
+            e.detail.errMsg === "getUserInfo:ok"
+          ) {
+            const { rawData } = e.detail;
+            const userInfo = JSON.parse(rawData);
+            this.setState({
+              nickName: userInfo.nickName,
+              avatarUrl: userInfo.avatarUrl,
+              readyShare: true
+            });
+            Taro.pageScrollTo({
+              scrollTop: 0
+            });
+          }
+        }
+      },
+      fail: res => {
+        console.log(res);
+      }
+    });
   }
 
   pause() {
-    console.log("pause");
     this.innerAudioContext.pause();
     this.setState({
       pauseMusic: true
@@ -100,7 +147,6 @@ class Index extends Component {
   }
 
   start() {
-    console.log("start");
     this.innerAudioContext.play();
     this.setState({
       pauseMusic: false
@@ -121,8 +167,18 @@ class Index extends Component {
       screenTwoAnimate,
       screenThreeAnimate
     } = this.state;
+
     const { shareAvatarUrl, shareNickName } = this.$router.params;
-    console.log(this.props);
+
+    const retNickName =
+      shareNickName && nickName === "福猪宝宝" ? shareNickName : nickName;
+    const retAvatarUrl =
+      shareAvatarUrl &&
+      avatarUrl ===
+        "http://zhuzhunian-1258431382.cos.ap-shanghai.myqcloud.com/logo.png"
+        ? shareAvatarUrl
+        : avatarUrl;
+
     return (
       <View className='wrapper'>
         <View className='index'>
@@ -141,10 +197,7 @@ class Index extends Component {
               />
             )}
           </View>
-          <ScreenOne
-            nickName={shareNickName || nickName}
-            avatarUrl={shareAvatarUrl || avatarUrl}
-          />
+          <ScreenOne nickName={retNickName} avatarUrl={retAvatarUrl} />
           <ScreenTwo screenTwoAnimate={screenTwoAnimate} />
           <ScreenThree screenThreeAnimate={screenThreeAnimate} />
 
